@@ -84,27 +84,8 @@ const Navbar = () => {
             <NavLink href="#contact">Contact</NavLink>
           </HStack>
 
-          {/* CTA Button & Mobile Menu */}
+          {/* Mobile Menu Button */}
           <HStack spacing={4}>
-            <Button
-              as={motion.button}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              display={{ base: 'none', md: 'flex' }}
-              bg="linear-gradient(135deg, #BFE7A1 0%, #8fca6d 100%)"
-              color="gray.900"
-              rounded="full"
-              px={6}
-              fontWeight="semibold"
-              boxShadow="0 4px 20px rgba(191, 231, 161, 0.3)"
-              _hover={{ 
-                bg: 'linear-gradient(135deg, #a8d98a 0%, #6db54d 100%)',
-                boxShadow: '0 8px 30px rgba(191, 231, 161, 0.4)',
-              }}
-            >
-              Let's Talk
-            </Button>
-
             {/* Mobile Menu Button */}
             <IconButton
               display={{ base: 'flex', md: 'none' }}
@@ -135,15 +116,6 @@ const Navbar = () => {
               <Link href="#services" color="gray.300" fontSize="lg" onClick={onClose} _hover={{ color: 'brand.300' }}>Services</Link>
               <Link href="#projects" color="gray.300" fontSize="lg" onClick={onClose} _hover={{ color: 'brand.300' }}>Projects</Link>
               <Link href="#contact" color="gray.300" fontSize="lg" onClick={onClose} _hover={{ color: 'brand.300' }}>Contact</Link>
-              <Button
-                mt={4}
-                bg="linear-gradient(135deg, #BFE7A1 0%, #8fca6d 100%)"
-                color="gray.900"
-                rounded="full"
-                size="lg"
-              >
-                Let's Talk
-              </Button>
             </VStack>
           </DrawerBody>
         </DrawerContent>

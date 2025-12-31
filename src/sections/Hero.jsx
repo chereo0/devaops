@@ -200,7 +200,8 @@ const Hero = () => {
               <HStack spacing={{ base: 3, md: 4 }} flexWrap="wrap" justify={{ base: 'center', lg: 'flex-start' }}>
                 <Magnet padding={80} magnetStrength={3}>
                   <Button
-                    as={motion.button}
+                    as="a"
+                    href="#contact"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     bg="linear-gradient(135deg, #BFE7A1 0%, #8fca6d 100%)"
@@ -216,6 +217,7 @@ const Hero = () => {
                     _hover={{ 
                       bg: 'linear-gradient(135deg, #a8d98a 0%, #6db54d 100%)',
                       boxShadow: '0 8px 40px rgba(191, 231, 161, 0.4)',
+                      textDecoration: 'none',
                     }}
                   >
                     Get Started
@@ -223,9 +225,8 @@ const Hero = () => {
                 </Magnet>
                 <Magnet padding={80} magnetStrength={3}>
                   <Button
-                    as={motion.button}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    as="a"
+                    href="#projects"
                     variant="outline"
                     borderColor="rgba(191, 231, 161, 0.3)"
                     color="brand.300"
@@ -238,6 +239,7 @@ const Hero = () => {
                   _hover={{ 
                     bg: 'rgba(191, 231, 161, 0.1)',
                     borderColor: 'brand.300',
+                    textDecoration: 'none',
                   }}
                 >
                   Watch Demo

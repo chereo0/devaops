@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -15,8 +16,9 @@ import {
   FormControl,
   FormLabel,
   SimpleGrid,
+  useToast,
 } from '@chakra-ui/react';
-import { FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaArrowRight, FaPaperPlane } from 'react-icons/fa';
+import { FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaArrowRight, FaPaperPlane, FaWhatsapp } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import { AnimatedContent, BlurText, Magnet, ClickSpark } from '../components/reactbits';
@@ -68,6 +70,55 @@ const SocialButton = ({ icon, label, href }) => (
 );
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const toast = useToast();
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    const { name, email, subject, message } = formData;
+    
+    if (!name || !email || !message) {
+      toast({
+        title: 'Missing Information',
+        description: 'Please fill in your name, email, and message.',
+        status: 'warning',
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    // Create WhatsApp message
+    const whatsappMessage = `*New Contact Form Submission*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Subject:* ${encodeURIComponent(subject || 'No subject')}%0A%0A*Message:*%0A${encodeURIComponent(message)}`;
+    
+    // Lebanon phone number format: +961 78 974 626
+    const phoneNumber = '96178974626';
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+    
+    // Clear form
+    setFormData({ name: '', email: '', subject: '', message: '' });
+    
+    toast({
+      title: 'Redirecting to WhatsApp',
+      description: 'Your message is ready to send via WhatsApp!',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Box 
       id="contact" 
@@ -151,6 +202,9 @@ const Contact = () => {
                     <FormControl>
                       <FormLabel color="gray.400" fontSize="sm">Full Name</FormLabel>
                       <Input
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
                       placeholder="John Doe"
                       bg="rgba(0, 0, 0, 0.2)"
                       border="1px solid"
@@ -169,6 +223,9 @@ const Contact = () => {
                   <FormControl>
                     <FormLabel color="gray.400" fontSize="sm">Email Address</FormLabel>
                     <Input
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       type="email"
                       placeholder="john@example.com"
                       bg="rgba(0, 0, 0, 0.2)"
@@ -189,6 +246,9 @@ const Contact = () => {
                 <FormControl>
                   <FormLabel color="gray.400" fontSize="sm">Subject</FormLabel>
                   <Input
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
                     placeholder="Project Inquiry"
                     bg="rgba(0, 0, 0, 0.2)"
                     border="1px solid"
@@ -207,6 +267,9 @@ const Contact = () => {
                 <FormControl>
                   <FormLabel color="gray.400" fontSize="sm">Message</FormLabel>
                   <Textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
                     placeholder="Tell us about your project..."
                     rows={5}
                     bg="rgba(0, 0, 0, 0.2)"
@@ -228,19 +291,20 @@ const Contact = () => {
                     as={motion.button}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={handleSubmit}
                     w="full"
                     size="lg"
                     bg="linear-gradient(135deg, #BFE7A1 0%, #8fca6d 100%)"
                     color="gray.900"
                     rounded="xl"
-                    rightIcon={<FaPaperPlane />}
+                    rightIcon={<FaWhatsapp />}
                     fontWeight="semibold"
                     boxShadow="0 4px 20px rgba(191, 231, 161, 0.3)"
                     _hover={{ 
                       boxShadow: '0 8px 30px rgba(191, 231, 161, 0.4)',
                     }}
                   >
-                    Send Message
+                    Send via WhatsApp
                   </Button>
                 </Magnet>
               </VStack>
